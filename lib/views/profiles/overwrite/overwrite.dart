@@ -8,6 +8,7 @@ import 'package:fl_clash/widgets/widgets.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'chain_proxy.dart';
 import 'custom/custom.dart';
 import 'script.dart';
 import 'standard.dart';
@@ -59,7 +60,9 @@ class _OverwriteViewState extends ConsumerState<OverwriteView> {
         ],
         body: const ScrollConfiguration(
           behavior: ShowBarScrollBehavior(),
-          child: CustomScrollView(slivers: [_Title(), _Content()]),
+          child: CustomScrollView(
+            slivers: [_Title(), _ChainProxyEntry(), _Content()],
+          ),
         ),
       ),
     );
@@ -151,6 +154,48 @@ class _Title extends ConsumerWidget {
               style: context.textTheme.bodySmall?.copyWith(
                 color: context.colorScheme.onSurfaceVariant.opacity80,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChainProxyEntry extends ConsumerWidget {
+  const _ChainProxyEntry();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profileId = ProfileIdProvider.of(context)!.profileId;
+    final count = ref.watch(
+      profileProvider(profileId).select(
+        (profile) => getChainProxyOverrides(
+          profile?.selectedMap ?? const <String, String>{},
+        ).length,
+      ),
+    );
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          MoreActionButton(
+            label: context.appLocalizations.proxyChains,
+            onPressed: () {
+              BaseNavigator.push(
+                context,
+                ChainProxyView(profileId: profileId),
+              );
+            },
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (count > 0) ...[
+                  Text('$count'),
+                  const SizedBox(width: 8),
+                ],
+                const Icon(Icons.arrow_forward_ios, size: 18),
+              ],
             ),
           ),
         ],

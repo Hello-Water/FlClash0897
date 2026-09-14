@@ -351,6 +351,11 @@ class SetupAction extends _$SetupAction {
     if (scriptContent?.isNotEmpty == true) {
       rawConfig = await handleEvaluate(scriptContent!, rawConfig);
     }
+    final profile = ref.read(profileProvider(profileId));
+    rawConfig = applyChainProxyOverrides(
+      rawConfig,
+      profile?.selectedMap ?? const <String, String>{},
+    );
     final directory = await appPath.profilesPath;
     final res = makeRealProfileTask(
       MakeRealProfileState(
