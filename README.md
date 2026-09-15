@@ -19,34 +19,36 @@ This branch is based on the upstream FlClash project and keeps the original FlCl
 
 ## Prebuilt Packages
 
-Prebuilt Linux AMD64 packages are available for users who do not want to compile from source.
+Prebuilt Linux AMD64 packages for this branch are available for download:
 
-### OneDrive
+* `.deb`
+* `.rpm`
+* `.AppImage`
 
-[Download prebuilt packages from OneDrive](https://1drv.ms/f/c/04017f21f5709366/IgApu70LGda9QpKYAHFTn064AfUsVqB_nqKV40Mjr57zK0o?e=Zlik5R)
+[Download from OneDrive](https://1drv.ms/f/c/04017f21f5709366/IgApu70LGda9QpKYAHFTn064AfUsVqB_nqKV40Mjr57zK0o?e=Zlik5R)
 
-Available packages:
+These packages are built from the `feature/dialer-proxy-chain` branch.
 
-```text
-FlClash-*.deb
-FlClash-*.rpm
-FlClash-*.AppImage
-```
+The source has been verified to compile successfully on the tested Ubuntu 20.04 environment, and Chain Proxy configuration has been verified to generate Mihomo `dialer-proxy` entries correctly.
 
-### Recommended package
+Additional distribution- and environment-specific runtime testing is welcome.
 
-For Ubuntu 20.04:
+### Ubuntu / Debian
 
 ```bash
 sudo apt install ./FlClash-*.deb
 ```
 
-For AppImage:
+### AppImage
 
 ```bash
 chmod +x FlClash-*.AppImage
 ./FlClash-*.AppImage
 ```
+
+### RPM
+
+Install using the package manager appropriate for your RPM-based distribution.
 
 ---
 
